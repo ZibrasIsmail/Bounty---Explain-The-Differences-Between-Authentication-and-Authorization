@@ -40,6 +40,10 @@ By combining authentication and authorization, the system is safeguarded from bo
 
 Both are essential for protecting sensitive operations like deleting users, but they serve distinct roles in the overall security model.
 
+### Conclusion
+
+Requiring authentication for deleting users is a best practice, as it prevents unauthorized deletions and ensures that only verified users can attempt such actions. Additionally, pairing it with authorization ensures that even authenticated users are restricted based on their permissions, leading to a secure and reliable system.
+
 ### Diagram
 
 Here's a simple flowchart to visualize the process:
@@ -63,10 +67,6 @@ Here's a simple flowchart to visualize the process:
          +-----------------------------+
          | Delete User Action Allowed  |
          +-----------------------------+
-
-### Conclusion
-
-Requiring authentication for deleting users is a best practice, as it prevents unauthorized deletions and ensures that only verified users can attempt such actions. Additionally, pairing it with authorization ensures that even authenticated users are restricted based on their permissions, leading to a secure and reliable system.
 
 # Environment Setup
 
