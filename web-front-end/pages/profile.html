@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="../styles/styles.css" />
+</head>
+
+<body class="body-profile">
+  <div class="container">
+    <form id="profile-form">
+      <h1>User Profile</h1>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+
+      <label for="contact_number">Contact Number:</label>
+      <input type="tel" id="contact_number" name="contact_number" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <button type="submit">Update Profile</button>
+    </form>
+
+    <form id="delete-user-form">
+      <h3>Delete User</h3>
+      <label for="delete-username">Username to delete:</label>
+      <input type="text" id="delete-username" name="delete-username" required />
+      <button type="submit">Delete User</button>
+    </form>
+  </div>
+
+  <script>
+    async function loadUserProfile() {
+      const response = await fetch("https://legendary-potato-j7w47prr4472pgjg-4001.app.github.dev/auth/user", {
+        credentials: "include",
+      });
+      const user = (await response.json())?.payload;
+      if (!user) {
+        alert("Failed to load user profile");
+        window.location.href = "./index.html";
+        return;
+      }
+      document.getElementById("username").value = user.username;
+      document.getElementById("contact_number").value = user.contact_number;
+      document.getElementById("email").value = user.email;
+    }
+
+    document
+      .getElementById("profile-form")
+      .addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const contact_number =
+          document.getElementById("contact_number").value;
+        const email = document.getElementById("email").value;
+        const response = await fetch(
+          "https://legendary-potato-j7w47prr4472pgjg-4001.app.github.dev/auth/user",
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, contact_number }),
+            credentials: "include",
+          }
+        );
+        const result = await response.json();
+        // handle response
+        if (result.ok) {
+          alert("Profile updated successfully");
+          return;
+        } else {
+          alert(result.message);
+        }
+      });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const deleteForm = document.getElementById('delete-user-form');
+
+      deleteForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const username = document.getElementById('delete-username').value;
+
+        try {
+          const response = await fetch('https://legendary-potato-j7w47prr4472pgjg-4001.app.github.dev/auth/delete/user', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username }),
+            credentials: 'include'
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            alert('User deleted successfully');
+          } else {
+            alert(`Error: ${result.message}`);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred while trying to delete the user');
+        }
+
+        document.getElementById('username').value = '';
+      });
+    });
+
+
+    loadUserProfile();
+  </script>
+</body>
+
+</html>
