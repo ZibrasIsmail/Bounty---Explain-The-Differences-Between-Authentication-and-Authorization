@@ -64,6 +64,10 @@ Here's a simple flowchart to visualize the process:
          | Delete User Action Allowed  |
          +-----------------------------+
 
+### Conclusion
+
+Requiring authentication for deleting users is a best practice, as it prevents unauthorized deletions and ensures that only verified users can attempt such actions. Additionally, pairing it with authorization ensures that even authenticated users are restricted based on their permissions, leading to a secure and reliable system.
+
 # Environment Setup
 
 ## Backend Setup
@@ -97,7 +101,3 @@ Install the "Live Server" extension if you haven't already.
 Right-click on the index.html file and select "Open with Live Server".
 
 Your frontend should now be running locally, and you can interact with the delete user functionality.
-
-### Conclusion
-
-Requiring authentication for deleting users is a best practice, as it prevents unauthorized deletions and ensures that only verified users can attempt such actions. Additionally, pairing it with authorization ensures that even authenticated users are restricted based on their permissions, leading to a secure and reliable system.
